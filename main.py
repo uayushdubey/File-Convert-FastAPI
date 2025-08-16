@@ -57,6 +57,10 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(clean_tmp_folder, 'interval', minutes=30)
 scheduler.start()
 
+@app.get("/")
+async def root():
+    return {"message": "Service is running!"}
+
 @app.post("/convert")
 async def convert_file(
     file: UploadFile = File(...),
@@ -171,3 +175,4 @@ async def download_file(file_name: str, background_tasks: BackgroundTasks):
         filename="converted.xlsx",
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+

@@ -2,7 +2,6 @@
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Python](https://img.shields.io/badge/Python-3.7+-blue?style=flat&logo=python)](https://python.org)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A high-performance FastAPI service that converts CSV files to Excel format with automatic delimiter detection, encoding support, and intelligent formatting.
 
@@ -80,45 +79,31 @@ curl http://localhost:8000/
 ### High-Level Overview
 
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Client App    │───▶│   FastAPI       │───▶│   File System   │
-│                 │    │   Service       │    │                 │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                              │
-                              ▼
-                       ┌─────────────────┐
-                       │   Background    │
-                       │   Scheduler     │
-                       └─────────────────┘
+Client App → FastAPI Service → File System
+               ↓
+         Background Scheduler
 ```
+
+**Component Flow:**
+1. **Client App** - Sends CSV file upload requests
+2. **FastAPI Service** - Processes conversion requests
+3. **File System** - Stores temporary and output files
+4. **Background Scheduler** - Cleans up old files
 
 ### Data Processing Flow
 
 ```
-File Upload
-    │
-    ▼
-Validation & Temp Storage
-    │
-    ▼
-Delimiter Detection
-    │
-    ▼
-CSV Parsing (Row-by-Row)
-    │
-    ▼
-Excel Generation
-    │
-    ├── Sheet 1 (Headers + Data)
-    ├── Sheet 2 (If >1M rows)
-    └── Error Sheet (If errors)
-    │
-    ▼
-Response with Download URL
-    │
-    ▼
-Background Cleanup
+File Upload → Validation → Delimiter Detection → CSV Parsing → Excel Generation → Response → Cleanup
 ```
+
+**Processing Steps:**
+1. **File Upload** - Client sends CSV file
+2. **Validation** - Check file format and store temporarily
+3. **Delimiter Detection** - Auto-detect CSV structure
+4. **CSV Parsing** - Process data row-by-row
+5. **Excel Generation** - Create formatted Excel file with multiple sheets
+6. **Response** - Return download URL to client
+7. **Cleanup** - Remove temporary files after download
 
 ### Core Components
 
@@ -423,6 +408,5 @@ pytest
 black main.py
 flake8 main.py
 ```
-
 
 **Repository:** [https://github.com/uayushdubey/File-Convert-FastAPI](https://github.com/uayushdubey/File-Convert-FastAPI)

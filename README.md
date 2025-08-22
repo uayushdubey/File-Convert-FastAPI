@@ -565,14 +565,6 @@ flake8 main.py
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
-
-For support and questions:
-
-- **GitHub Issues**: [Create an issue](https://github.com/uayushdubey/File-Convert-FastAPI/issues)
-- **Documentation**: [API Documentation](http://localhost:8000/docs)
-- **Email**: [Contact maintainer](mailto:your-email@example.com)
-
 ## Changelog
 
 ### Version 1.0.0
